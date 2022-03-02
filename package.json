@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
+    "@types/multer": "^1.4.7",
+    "csv-parse": "^5.0.4",
     "express": "^4.17.3",
+    "multer": "^1.4.4",
+    "swagger-ui-express": "^4.3.0",
     "uuid": "^8.3.2"
   },
   "scripts": {
