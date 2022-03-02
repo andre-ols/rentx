@@ -1,6 +1,6 @@
 import { Category } from '../model/Category';
 
-interface ICategoriesRpository {
+interface ICategoriesRepository {
   create({ name, description }: ICreateCategoryDTO): void;
   get(): Category[];
   findByName(name: string): Category | undefined;
@@ -12,4 +12,4 @@ interface ICreateCategoryDTO {
   description: string;
 }
 
-export { ICategoriesRpository, ICreateCategoryDTO };
+export { ICategoriesRepository, ICreateCategoryDTO };
