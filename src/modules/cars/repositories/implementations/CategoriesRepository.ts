@@ -20,13 +20,14 @@ class CategoriesRepository implements ICategoriesRepository {
     return CategoriesRepository.INSTANCE;
   }
 
-  create({ name, description }: ICreateCategoryDTO) {
+  create({ name, description }: ICreateCategoryDTO): Category {
     const category = new Category({
       name,
       description,
     });
 
     this.categories.push(category);
+    return category;
   }
 
   get(): Category[] {

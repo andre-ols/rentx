@@ -1,7 +1,7 @@
 import { Category } from '../model/Category';
 
 interface ICategoriesRepository {
-  create({ name, description }: ICreateCategoryDTO): void;
+  create({ name, description }: ICreateCategoryDTO): Category;
   get(): Category[];
   findByName(name: string): Category | undefined;
 }
