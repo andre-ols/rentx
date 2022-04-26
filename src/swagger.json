@@ -21,22 +21,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "required": [
-                                    "name", "description"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    }
-                                },
-                                "example": {
-                                    "name": "Category name sample",
-                                    "description": "Category description sample"
-                                }
+                                "$ref": "#/definitions/Category"
                             }
                         }
                     },
@@ -48,34 +33,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "type": "string",
-                                            "format": "uuid"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "description": {
-                                            "type": "string"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                        }
-                                    },
-                                    "example": {
-                                        "id": "61ab6979-9ab4-4fa2-b979-ac94d3ba1e1e",
-                                        "name": "Category name sample",
-                                        "description": "Category description sample",
-                                        "created_at": "2022-01-01T00:00:00.000Z",
-                                        "updated_at": "2022-01-01T00:00:00.000Z"
-                                    }
+                                    "$ref": "#/definitions/Category"
                                 }
                             }
                         }
@@ -97,30 +55,7 @@
                   "content":{
                     "application/json":{
                       "schema":{
-                        "type":"array",
-                        "items":{
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                                "type": "string",
-                                "format": "uuid"
-                            },
-                            "name": {
-                                "type": "string"
-                            },
-                            "description": {
-                                "type": "string"
-                            },
-                            "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                            },
-                            "updated_at": {
-                                "type": "string",
-                                "format": "date-time"
-                            }
-                        }
-                        }
+                          "$ref":"#/definitions/Categories"
                       }
                     }
                   }
@@ -129,6 +64,145 @@
                   "description":"Internal server error"
                 }
               }
+            }
+        },
+        "/categories/import": {
+            "post": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Import categories",
+                "operationId": "importCategories",
+                "description": "Import categories",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/specifications": {
+            "post": {
+                "tags": [
+                    "specifications"
+                ],
+                "summary": "Create a new specification",
+                "operationId": "createSpecification",
+                "description": "Create a new specification",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema":{
+                                "$ref": "#/definitions/Specification"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses":{
+                    "201":{
+                        "description":"Specification created",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref": "#/definitions/Specification"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    "definitions": {
+        "Category": {
+                "type":"array",
+                "items":{
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+                }
+        },
+        "Categories": {
+            "type":"array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+            }
+        },
+        "Specification": {
+            "type": "object",
+            "required": [
+                "name", "description"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "name": "Specification name sample",
+                "description": "Specification description sample"
             }
         }
     }

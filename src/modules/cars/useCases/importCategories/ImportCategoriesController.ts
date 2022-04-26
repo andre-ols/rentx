@@ -11,7 +11,7 @@ class ImportCategoriesController {
     try {
       const importCategoriesUseCase = container.resolve(ImportCategoriesUseCase);
       importCategoriesUseCase.execute(file);
-      return response.send();
+      return response.status(201).send();
     }
     catch (err: any) {
       return response.status(500).json({
