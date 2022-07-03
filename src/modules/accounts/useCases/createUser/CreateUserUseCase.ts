@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 import { ICreateUserDto } from '../../dtos/ICreateUserDto';
 import { User } from '../../entities/User';
@@ -15,7 +16,9 @@ class CreateUserUseCase {
 
     if (userAlreadyExists) throw new Error('User already exists');
 
-    const user = this.categoriesRepository.create(dto);
+    const passwordHash = await hash(dto.password, 10);
+
+    const user = this.categoriesRepository.create({ ...dto, password: passwordHash });
     return user;
   }
 }
